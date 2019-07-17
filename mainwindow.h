@@ -7,10 +7,8 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
-namespace Ui {
-class MainWindow;
-}
-
+///Структура для расшифровки пакета
+#pragma pack(push, 1)
 struct coords
 {
   float x;
@@ -18,6 +16,11 @@ struct coords
   float z;
   float w;
 };
+#pragma pack(pop)
+
+namespace Ui {
+class MainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
@@ -37,19 +40,35 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    int connectToDevice(QString portName);
-    void disconnectDevice();
-    void readSettings();
-
-    QSerialPort port;
-    QLabel state;
-    QLabel bytesReceived;
-    QSettings * settings;
-    QByteArray portData;
-
+    ///Счетчик принятых пакетов
     int packetCounter;
 
+    ///Признак обнаружения байта синхронизации
     bool syncIsAlive;
+
+    ///Экземпляр порта для обмена с прибором
+    QSerialPort port;
+
+    ///Элемент отображения состояния порта
+    QLabel state;
+
+    ///Элемент отображения количества принятых пакетов
+    QLabel bytesReceived;
+
+    ///Экземпляр для взаимодействия с файлом настроек
+    QSettings * settings;
+
+    ///Массив для хранения пакетов приходящих с прибора. Очищается при вычитывании всего пакета.
+    QByteArray portData;
+
+    ///Метод для подключения к прибору
+    int connectToDevice();
+
+    ///Метод для отключения от прибора
+    void disconnectDevice();
+
+    ///Метод чтения сохраненных настроек
+    void readSettings();
 };
 
 #endif // MAINWINDOW_H
