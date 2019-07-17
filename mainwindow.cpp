@@ -41,7 +41,7 @@ int MainWindow::connectToDevice()
     if (!port.open(QIODevice::ReadWrite))
     {
         state.setText("Ошибка: Не удалось установить подключение!");
-        return 1;
+        return OPEN_DEVICE_ERROR;
     }
 
     ///Сброс флага синхронизации

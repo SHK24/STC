@@ -1,11 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define OPEN_DEVICE_ERROR 1
+
 #include <QLabel>
 #include <QSettings>
 #include <QMainWindow>
 #include <QSerialPort>
 #include <QSerialPortInfo>
+
 
 ///Структура для расшифровки пакета
 #pragma pack(push, 1)
